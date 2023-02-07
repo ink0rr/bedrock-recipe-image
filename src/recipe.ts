@@ -6,6 +6,7 @@ const base = await loadImage("./data/base.png");
 const missing = await loadImage("./data/missing.png");
 
 export async function createRecipeImage(inputs: string[], output: string, customItems: Record<string, string>) {
+  const result = base.clone();
   const textures = new Map<string, Image>();
   const getItemTexture = async (id: string) => {
     if (textures.has(id)) {
@@ -27,7 +28,7 @@ export async function createRecipeImage(inputs: string[], output: string, custom
     if (input) {
       const image = await getItemTexture(input);
       image.fit(48, 48);
-      base.composite(image, 6 + x * 54, 6 + y * 54);
+      result.composite(image, 6 + x * 54, 6 + y * 54);
     }
     if (++x % 3 === 0) {
       x = 0;
@@ -38,8 +39,8 @@ export async function createRecipeImage(inputs: string[], output: string, custom
   if (output) {
     const image = await getItemTexture(output);
     image.fit(48, 48);
-    base.composite(image, 300, 72);
+    result.composite(image, 300, 72);
   }
 
-  return base;
+  return result;
 }
