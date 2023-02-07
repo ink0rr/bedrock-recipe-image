@@ -13,7 +13,6 @@ app.get("/", async (ctx) => {
   const { input, output, customItems } = parseUrl(ctx.req.url);
   const image = await createRecipeImage(input, output, customItems);
 
-  ctx.res.headers.set("Cache-Control", "max-age=2592000");
   ctx.res.headers.set("Content-Type", "image/png");
 
   return ctx.newResponse(await image.encode(), 200);
@@ -23,7 +22,6 @@ app.get("/gdocs", async (ctx) => {
   const { origin, search } = new URL(ctx.req.url);
   const blob = createBlob(origin, search);
 
-  ctx.res.headers.set("Cache-Control", "max-age=2592000");
   ctx.res.headers.set("Content-Type", "text/html");
 
   return ctx.newResponse(await blob.text(), 200);
