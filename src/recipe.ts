@@ -39,7 +39,7 @@ export async function createRecipeImage(inputs: string[], output: string, custom
   if (output) {
     const image = await getItemTexture(output);
     image.fit(48, 48);
-    result.composite(image, 300, 72);
+    result.composite(image, 300, 60);
   }
 
   return result;
